@@ -8,9 +8,7 @@ using namespace httplib;
 using namespace nlohmann;
 using namespace std;
 
-
 string PATH = "/data/2.5/forecast?q=Simferopol&appid=c6fac05b9afef023bd1347495d1c2052&units=metric&lang=en";
-
 
 void gen_response(const Request& req, Response& res){
 	ifstream fin("informer_template.html");
