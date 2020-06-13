@@ -94,7 +94,7 @@ void gen_response(const Request& request, Response& response){
 	response.set_content(temp, "text/html");
    }
 ```
-**6\.** Написанный кода в браузере.
+**4\.** Написанный кода в браузере.
 ![Рис.2 Ответ клиенту](https://github.com/DaraPiht/Lab6/blob/master/T_qBHb32dmA.jpg)
 
 
