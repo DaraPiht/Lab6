@@ -8,7 +8,18 @@ using namespace httplib;
 using namespace nlohmann;
 using namespace std;
 
-string Road = "/data/2.5/forecast?q=Simferopol&appid=c6fac05b9afef023bd1347495d1c2052&units=metric&lang=en";
+string Road = "/data/2.5/forecast?q=Feodosia&appid=c6fac05b9afef023bd1347495d1c2052&units=metric&lang=en";
+
+void gen_response(const Request& request, Response& response);
+
+int main(){
+	// Не запуская, создаём сервер 
+	Server svr;      
+	// Выполняем условие, если кто-то обратиться к корню "сайта" - вызвать функцию gen_response
+	svr.Get("/", gen_response);  
+	// Запускаем сервер 
+	svr.listen("localhost", 2020); 	
+}
 
 void gen_response(const Request& request, Response& response){
 	ifstream fin("t_informer.html");
@@ -42,11 +53,3 @@ void gen_response(const Request& request, Response& response){
 	        }
 	response.set_content(temp, "text/html");
    }
-int main(){
-	// Не запуская, создаём сервер 
-	Server svr;      
-	// Выполняем условие, если кто-то обратиться к корню "сайта" - вызвать функцию gen_response
-	svr.Get("/", gen_response);  
-	// Запускаем сервер 
-	svr.listen("localhost", 2020); 	
-}
