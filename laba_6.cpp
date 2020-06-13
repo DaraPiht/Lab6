@@ -10,18 +10,18 @@ using namespace std;
 
 string Road = "/data/2.5/forecast?q=Simferopol&appid=c6fac05b9afef023bd1347495d1c2052&units=metric&lang=en";
 
-void gen_response(const Request& req, Response& res){
-	ifstream fin("informer_template.html");
+void gen_response(const Request& request, Response& response){
+	ifstream fin("t_informer.html");
 	string temp;
 	getline(fin, temp, '\0');
 
-	Client cli("api.openweathermap.org", 80);
+	Client man("api.openweathermap.org", 80);
 
-	auto client_res = cli.Get(PATH.c_str());
-	if (client_res && client_res->status == 200){
-		json j = json::parse(client_res->body);
-		string forr = "{city.name}";
-		temp.replace(temp.find("{city.name}"), forr.size(), j["city"]["name"].get<string>());
+	auto client_response = man.Get(Road.c_str());
+	if (client_response && client_response->status == 200){
+		json j = json::parse(client_response->body);
+		string C_name = "{city.name}";
+		temp.replace(temp.find("{city.name}"), C_name.size(), j["city"]["name"].get<string>());
 		size_t last_index = 0;
 
 		string storage;
@@ -40,7 +40,7 @@ void gen_response(const Request& req, Response& res){
 			temp.replace(last_index, strlen("{list.main.temp}"), storage.substr(0, 4));
 		  }
 	        }
-	res.set_content(temp, "text/html");
+	response.set_content(temp, "text/html");
    }
 int main(){
 	// Не запуская, создаём сервер 
