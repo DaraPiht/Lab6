@@ -95,7 +95,7 @@ void gen_response(const Request& request, Response& response){
    }
 ```
 **6\.** Написанный кода в браузере.
-![Рис.2 Ответ клиенту](https://raw.githubusercontent.com/GachiGucciGhoul/Laboratory_works/master/Lab6/scrinshots/itog.jpg)
+![Рис.2 Ответ клиенту](https://github.com/DaraPiht/Lab6/blob/master/T_qBHb32dmA.jpg)
 
 
 **Вывод:** В ходе выполнения данной лабораторной работы я закрепила навыки работы с GitHUb и многофайловыми файлами, научилась работать с серверам и клиентом, изучила процессы сериализации/десериализации данных.
