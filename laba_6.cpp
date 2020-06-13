@@ -8,7 +8,7 @@ using namespace httplib;
 using namespace nlohmann;
 using namespace std;
 
-string Road = "/data/2.5/forecast?q=Feodosia&appid=c6fac05b9afef023bd1347495d1c2052&units=metric&lang=en";
+string Road = "/data/2.5/forecast?q=Feodosia&appid=309809d6c8c8d80cc221c21bc1a91790&units=metric&lang=en";
 
 void gen_response(const Request& request, Response& response);
 
@@ -33,22 +33,23 @@ void gen_response(const Request& request, Response& response){
 		json j = json::parse(client_response->body);
 		string C_name = "{city.name}";
 		temp.replace(temp.find("{city.name}"), C_name.size(), j["city"]["name"].get<string>());
-		size_t last_index = 0;
+		size_t l_ind = 0;
 
-		string storage;
+		string storg;
 		for (short i = 0; i < j["cnt"].get<short>(); i += 8){
-			storage = j["list"][i]["dt_txt"].get<string>();
-			storage = storage.substr(0, storage.find(' '));
-			last_index = temp.find("{list.dt}", last_index);
-			temp.replace(last_index, strlen("{list.dt}"), storage);
+			storg = j["list"][i]["dt_txt"].get<string>();
+			storg = storg.substr(0, storg.find(' '));
+			l_ind = temp.find("{list.dt}", l_ind);
+			temp.replace(l_ind, strlen("{list.dt}"), storg);
 
-			storage = j["list"][i]["weather"][0]["icon"].get<string>();
-			last_index = temp.find("{list.weather.icon}", last_index);
-			temp.replace(last_index, strlen("{list.weather.icon}"), storage);
+			storg = j["list"][i]["weather"][0]["icon"].get<string>();
+			l_ind = temp.find("{list.weather.icon}", l_ind);
+			temp.replace(l_ind, strlen("{list.weather.icon}"), storg);
 
-			storage = to_string(j["list"][i]["main"]["temp"].get<double>());
-			last_index = temp.find("{list.main.temp}", last_index);
-			temp.replace(last_index, strlen("{list.main.temp}"), storage.substr(0, 4));
+			storg = to_string(j["list"][i]["main"]["temp"].get<double>());
+			l_ind = temp.find("{list.main.temp}", l_ind);
+			temp.replace(l_ind, strlen("{list.main.temp}"), 
+			storg.substr(0, 4));
 		  }
 	        }
 	response.set_content(temp, "text/html");
